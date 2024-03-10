@@ -6,7 +6,7 @@
 #define LED1_PIN 5
 #define LED2_PIN 16
 #define LED3_PIN 15
-#define LED_BUILTIN 4
+#define LED_BUILTIN 2
 
 // Variables to hold LED states
 bool led1State = false;
@@ -66,7 +66,7 @@ void onConnect()
 void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT); // Initialize the onboard LED pin as an output
-  Serial.begin(115200);
+  Serial.begin(460800);
 
   // Define Callback Function
   Ps3.attach(notify);
@@ -85,16 +85,33 @@ void setup()
   Serial.println("Ready.");
 }
 int num = 0;
+
+void lightshow();
 void loop()
 {
-  if (!Ps3.isConnected()) {
+  if (!Ps3.isConnected())
+  {
     Serial.println(num + "PS3 Controller is not Connected...\nPlease Connect :)");
     // num++;
   }
   delay(2000);
+  lightshow();
+}
 
-  digitalWrite(LED_BUILTIN, HIGH); // Turn on the onboard LED
-  delay(500);                      // Delay for 500 milliseconds
-  digitalWrite(LED_BUILTIN, LOW);  // Turn off the onboard LED
-  delay(500);                      // Delay for another 500 milliseconds                // wait for 500 milliseconds
+void lightshow()
+{
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(2000);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(2000);
+  // ----
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(100);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(100);
+  // ----
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(100);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(100);
 }
